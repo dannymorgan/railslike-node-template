@@ -77,9 +77,9 @@ npm install --save-dev nodemon sequelize-cli
 
 ### Scripts
 
-You don't actually need any of these, but Node convention is to add scripts from
-dependencies into your package.json file and then run them all via your package
-manager (in this case, npm).
+You don't actually need any of these, but Node convention (mostly because it prepends 
+node_modules/.bin automatically) is to add scripts from dependencies into your 
+package.json file and then run them all via your package manager (in this case, npm).
 
 In your package.json file, you'll see a "scripts" object. It's JSON, treat it
 like a Hash, the key is the command you run, the value is the command it runs.
