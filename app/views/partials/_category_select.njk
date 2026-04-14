@@ -1,0 +1,12 @@
+<div class="form__group">
+  <label for="categoryId">Category</label>
+  <select id="categoryId" name="categoryId" class="form__input form__select">
+    <option value="">- None -</option>
+    {% for category in categories %}
+      <option value="{{ category.id }}"
+        {% if selectedCategoryId == category.id %}selected{% endif %}>
+        {{ category.name }}
+      </option>
+    {% endfor %}
+  </select>
+</div>

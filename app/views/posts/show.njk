@@ -1,0 +1,26 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+  <article class="post">
+    <h1 class="post__title">{{ post.title }}</h1>
+    <div class="post__meta">
+      <time>{{ post.createdAt | date }}</time>
+      {% if post.category %}
+        <span class="post__meta-sep">·</span>
+        <span class="badge">{{ post.category.name }}</span>
+      {% endif %}
+    </div>
+    <div class="post__body">
+      {{ post.body | nl2br | safe }}
+    </div>
+  </article>
+
+  <div class="post__actions">
+    <a href="/posts/{{ post.id }}/edit" class="btn btn--secondary">Edit</a>
+    <form method="POST" action="/posts/{{ post.id }}?_method=DELETE"
+          onsubmit="return confirm('Delete this post?')">
+      <button type="submit" class="btn btn--danger">Delete</button>
+    </form>
+    <a href="/posts" class="btn btn--ghost">Back to posts</a>
+  </div>
+{% endblock %}

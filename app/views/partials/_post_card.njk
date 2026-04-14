@@ -1,0 +1,15 @@
+<article class="post-card">
+  <div class="post-card__header">
+    <h2 class="post-card__title">
+      <a href="/posts/{{ post.id }}">{{ post.title }}</a>
+    </h2>
+    {% if post.category %}
+      <span class="badge">{{ post.category.name }}</span>
+    {% endif %}
+  </div>
+  <p class="post-card__excerpt">{{ post.excerpt }}</p>
+  <div class="post-card__meta">
+    <time>{{ post.createdAt | date }}</time>
+    <a href="/posts/{{ post.id }}">Read more</a>
+  </div>
+</article>

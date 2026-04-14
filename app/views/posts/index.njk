@@ -1,0 +1,21 @@
+{% extends "layouts/base.njk" %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>Posts</h1>
+    <a href="/posts/new" class="btn btn--primary">New Post</a>
+  </div>
+
+  {% if posts.length %}
+    <div class="post-list">
+      {% for post in posts %}
+        {% include "partials/_post_card.njk" %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <p>No posts yet.</p>
+      <a href="/posts/new" class="btn btn--primary">Write the first one</a>
+    </div>
+  {% endif %}
+{% endblock %}
