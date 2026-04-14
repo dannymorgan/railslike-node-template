@@ -1,4 +1,4 @@
-# Railslike node template
+# Railslike node template
 
 The purpose of this repo is really just an excercise for myself to see how close
 i could get to the famous Rails 15 minute blog demo. I didn't manage it, in
@@ -12,7 +12,7 @@ useful for you to understand what the moving parts are. That said, if you're
 familiar with Rails (or things like Rails, like Laravel) you could probably pick
 this up as is and run with it.
 
-## Deps
+## Deps
 
 The only things you need to get this set up are Node 20.x, npm 10.x (which
 should come with node), and Postgres (probably 15/16 at least, i'm using 18.3).
@@ -37,7 +37,7 @@ public/
 
 Then run `npm init` and follow the steps til you get a package.json file.
 
-### Package deps
+### Package deps
 
 We need several packages installed in production:
 
@@ -130,7 +130,7 @@ module.exports = {
 };
 ```
 
-### Database config
+### Database config
 
 You probably saw in the sequelize setup we referenced a file at
 `config/database.js` that doesn't exist yet. This is functionally equivalent to
@@ -299,7 +299,7 @@ for lines like `== 20260414175643-create-categories: migrated (0.015s)` to show
 you that it's done, and if you want to confirm then you can run `\dt` from a
 psql session, and you should see both your tables and a sequelize meta table.
 
-### Seeds
+### Seeds
 
 Just like our migrations, sequelize cli also contains a generator for
 timestamped seed files. Something to be aware of here is that seed order isn't
@@ -366,7 +366,7 @@ module.exports = {
 When we're ready to load our seeds into the database, we just run our seed
 script with `npm run db:seed`.
 
-### Models
+### Models
 
 It's worth saying here that you can stick a lot of logic in your model files
 like most users of rails do, but over the past few years i've increasingly
@@ -482,7 +482,7 @@ Category.hasMany(Post, { foreignKey: "categoryId", as: "posts" });
 module.exports = { sequelize, Category, Post };
 ```
 
-### Service objects
+### Service objects
 
 I love them, i overuse them, and you can't stop me. I'm making service objects
 for all of our models, because our models are doing the job of a schema, and our
@@ -780,7 +780,7 @@ exports.nl2br = function (value) {
 
 Which we can easily call in views like this: `{{ post.body | nl2br | safe }}`
 
-### Server
+### Server
 
 The only thing left to do before we start building out views is to set up our
 server. In node, the convention is a `server.js` file at root, and that's what
@@ -862,7 +862,7 @@ route in the browser because we have no views, but you should see it connect to
 postgres in the console and let you know if the app started running on your
 defined port.
 
-### Views
+### Views
 
 Nunjucks is an odd choice for a view engine, and if i wasn't trying to bridge a
 rails and node gap i'd use something else, but `njk` is unbelievably similar to
@@ -935,7 +935,7 @@ you're going to build them, an exhaustive list of all the views in use here is:
 - `app/views/posts/show.njk`
 - `app/views/posts/edit.njk`
 
-### CSS
+### CSS
 
 I also won't include the CSS in the readme, because it's hardly universal, but
 it is worth touching on because it's included in our base layout.
