@@ -1,13 +1,13 @@
-# Railslike node template
+# Rails-like Node Template
 
-The purpose of this repo is really just an excercise for myself to see how close
-i could get to the famous Rails 15 minute blog demo. I didn't manage it, in
+The purpose of this repo is really just an exercise for myself to see how close
+I could get to the famous Rails 15 minute blog demo. I didn't manage it; in
 fact, this took me 31 minutes and is missing a LOT of what makes Rails good, but
-it does have CRUD for blog posts, and i did add a categories association for
+it does have CRUD for blog posts, and I did add a categories association for
 good measure.
 
-Below, i will document the steps i used to set this up, and if you're interested
-in this sort of set up, i'd recommend doing it yourself, as it's probably more
+Below, I will document the steps I used to set this up, and if you're interested
+in this sort of setup, I'd recommend doing it yourself, as it's probably more
 useful for you to understand what the moving parts are. That said, if you're
 familiar with Rails (or things like Rails, like Laravel) you could probably pick
 this up as is and run with it.
@@ -15,8 +15,8 @@ this up as is and run with it.
 ## Deps
 
 The only things you need to get this set up are Node 20.x, npm 10.x (which
-should come with node), and Postgres (probably 15/16 at least, i'm using 18.3).
-There are package deps that i will cover as they come up.
+should come with Node), and Postgres (probably 15/16 at least, I'm using 18.3).
+There are package deps that I will cover as they come up.
 
 ## Steps
 
@@ -35,7 +35,7 @@ db/
 public/
 ```
 
-Then run `npm init` and follow the steps til you get a package.json file.
+Then run `npm init` and follow the steps until you get a package.json file.
 
 ### Package deps
 
@@ -47,7 +47,7 @@ We need several packages installed in production:
    ERB.
 3. sequelize - Our ORM. Gives us models, associations, validations, query
    interface. Our ActiveRecord.
-4. pg - The postgres driver. Sequelize won't talk to postgres dirctly, it hands
+4. pg - The postgres driver. Sequelize won't talk to postgres directly, it hands
    off to this. We don't use it, it just needs to be there.
 5. pg-hstore - For serializing and deserializing JSON data to postgres hstore
    format. Again, we don't use it, but sequelize will when dealing with
@@ -57,7 +57,7 @@ We need several packages installed in production:
    promise rejections won't be passed to express' error handler, and failing
    requests will just hang.
 7. method-override - For PATCH and DELETE requests we use a hidden `_method`
-   form field. Same thing rails does under the hood - this just let's us support
+   form field. Same thing Rails does under the hood - this just lets us support
    verbs that aren't GET and POST.
 
 ```bash
@@ -66,7 +66,7 @@ npm install express nunjucks sequelize pg pg-hstore express-async-errors method-
 
 We also need just a couple of dev dependencies alongside them:
 
-1. nodemon - rails server picks up changes and hot reloads, node doesn't. This
+1. nodemon - Rails server picks up changes and hot reloads, Node doesn't. This
    just adds that functionality.
 2. sequelize-cli - The command line tool that gives us railslike commands
    (db:migrate db:seed migration:generate etc)
@@ -77,8 +77,8 @@ npm install --save-dev nodemon sequelize-cli
 
 ### Scripts
 
-You don't actually need any of these, but Node convention (mostly because it prepends 
-node_modules/.bin automatically) is to add scripts from dependencies into your 
+You don't actually need any of these, but by Node convention (mostly because it prepends
+node_modules/.bin automatically) scripts from dependencies are added into your
 package.json file and then run them all via your package manager (in this case, npm).
 
 In your package.json file, you'll see a "scripts" object. It's JSON, treat it
@@ -114,7 +114,7 @@ The scripts object in package.json should now look like this:
 
 ### Setting up sequelize
 
-Rails knows where to find `db/migrate` and `app/models` live by convention, but
+Rails knows by convention where `db/migrate` and `app/models` live, but
 Node (and therefore sequelize) aren't like that. We tell sequelize where to find
 what it needs by making a file called `.sequelizerc` at the project root, which
 looks like this:
@@ -165,11 +165,11 @@ module.exports = {
 ```
 
 After that's done, we want to actually generate our `blog_development` database.
-In rails, we could use `rails db:create`, and here we can just use the CLI that
-comes with postgres. If you called your database `blog_development` like i did,
+In Rails, we could use `rails db:create`, and here we can just use the CLI that
+comes with postgres. If you called your database `blog_development` like I did,
 then run `createdb blog_development`.
 
-In some environments (fresh ubuntu for sure) Postgres will set up a system user
+In some environments (fresh Ubuntu for sure) Postgres will set up a system user
 called `postgres` and by default that'll be the only user allowed to create
 databases. If the command above gave you permissions errors, you're probably
 here. You have two options, you can either run it as the postgres user:
@@ -194,8 +194,8 @@ against a pattern you are used to in Rails).
 
 We didn't add a script for the generators because they take a `--name` argument
 that will always change. Notice that the ones we did add have fixed, repeatable
-behaviour. Since `--name` is always different, there's nothing useful to
-abstract here, npx just let's us run the CLI directly without it needing to be
+behavior. Since `--name` is always different, there's nothing useful to
+abstract here, npx just lets us run the CLI directly without it needing to be
 in those scripts or globally installed, because the `npx` keyword finds it in
 our `node_modules/.bin` and runs it from there. This might sound unintuitive,
 but it's really the same reason we'd run `rails generate migration` instead of
@@ -206,15 +206,15 @@ need to add for parity with the (very good, and underrated) rails generators
 (like `sequelize-cli-generate-migration`) just aren't mature or widely adopted
 enough, because that's not the way the node community likes to build. It takes
 some getting used to, but remember that the comforts of Rails rely heavily on
-the communities readiness to adopt convention. It's not hard to get used to, so
-i leave it out.
+the community's readiness to adopt convention. It's not hard to get used to, so
+I leave it out.
 
-There is an equivalent to the `rails g model` command in sequelize-cli, but i'm
-going to be using a service object pattern in this repo, so i'm avoiding that
+There is an equivalent to the `rails g model` command in sequelize-cli, but I'm
+going to be using a service object pattern in this repo, so I'm avoiding that
 too. If you'd rather do that,
 [here it is in the docs](https://sequelize.org/docs/v6/other-topics/migrations/#creating-the-first-model-and-migration).
 
-That said, generating timestamped migration file is actually pretty easy, just
+That said, generating a timestamped migration file is actually pretty easy, just
 run:
 
 ```bash
@@ -230,7 +230,7 @@ Down will typically just be `await queryInterface.dropTable('Categories')`, but
 more advanced use cases are fine here too. If that's down, you can probably
 guess that up is
 `await queryInterface.createTable('Categories', { // columns })`. I'll put
-examples of what i used in this template below, but i'd recommend the
+examples of what I used in this template below, but I'd recommend the
 [sequelize docs on the migration skeleton](https://sequelize.org/docs/v6/other-topics/migrations/#creating-the-first-model-and-migration)
 if you actually want to know what's going on.
 
@@ -369,14 +369,14 @@ script with `npm run db:seed`.
 ### Models
 
 It's worth saying here that you can stick a lot of logic in your model files
-like most users of rails do, but over the past few years i've increasingly
-embraced service objects for what i'd traditionally do in models. It works even
+like most users of Rails do, but over the past few years I've increasingly
+embraced service objects for what I'd traditionally do in models. It works even
 better in this node setup, because you might notice we don't have our
 `schema.rb` file, and the model files are where a Node developer would expect to
 find your schema.
 
-Controversial, i know, but it fits what i do in rails, and fits a node project
-better, so that's what i'm doing here. You do what you want. Either way, start
+Controversial, I know, but it fits what I do in Rails, and fits a Node project
+better, so that's what I'm doing here. You do what you want. Either way, start
 by making a `Category.js` and a `Post.js` file under `app/models`.
 
 My category model looks like this:
@@ -444,7 +444,7 @@ module.exports = (sequelize) => {
 
 That `excerpt` method could've just as easily gone into a post service we'll be
 making later, but it's here so you can see what you'd need to do if you're
-trying to stick closer to traditional rails conventions than i am.
+trying to stick closer to traditional Rails conventions than I am.
 
 I think this step marks our first major diversion from rails. Those model files
 are currently useless, nothing is consuming them right now, we need to
@@ -484,7 +484,7 @@ module.exports = { sequelize, Category, Post };
 
 ### Service objects
 
-I love them, i overuse them, and you can't stop me. I'm making service objects
+I love them, I overuse them, and you can't stop me. I'm making service objects
 for all of our models, because our models are doing the job of a schema, and our
 controllers are sacred. That means, if you are following me, you'll want a
 `CategoryService.js` and a `PostService.js` in `app/services`.
@@ -517,8 +517,8 @@ class CategoryService {
 module.exports = CategoryService;
 ```
 
-Our posts, on the otherhand, are pure CRUD. That means they additionally require
-an `create`, `update`, and `destroy` method, and we're going to add a method to
+Our posts, on the other hand, are pure CRUD. That means they additionally require
+a `create`, `update`, and `destroy` method, and we're going to add a method to
 give us back any validation errors from Sequelize as well by just mapping them
 to an array of their messages. Don't forget, we'll also need to include our
 Category model here if we want category to be returned with our posts.
@@ -581,9 +581,9 @@ to. Inside that file, we'll want to get express, use it to create a router, and
 then grab a posts controller (that we'll build shortly after) to tell the router
 which action each path routes to.
 
-A potential gotcha here is that rails knows what the root path is, that's why
+A potential gotcha here is that Rails knows what the root path is, that's why
 you can use `root` in your `config/routes.rb`. In this project, we just have to
-remember to manually assign `GET '/'` to a controller action, or what i'm
+remember to manually assign `GET '/'` to a controller action, or what I'm
 actually going to do is just redirect it to `/posts`.
 
 That, in my case, looks like this:
@@ -611,15 +611,15 @@ module.exports = router;
 ### Controllers
 
 Controllers here perform the same function they are expected to perform in
-rails, that is, take a request, and give it a useful response. We've already
+Rails, that is, take a request, and give it a useful response. We've already
 extracted our business logic to services, so really all we're doing is consuming
 the action, calling the service, and then rendering or redirecting.
 
-Unlike rails, our controllers actions can't intuit which view might belong to
+Unlike Rails, our controller actions can't intuit which view might belong to
 which action, so we'll need to define the view for all of them. This trips me up
 plenty, so double check it if your routing isn't going anywhere useful.
 
-Since all of our routes point to posts controller actions, we only need a posts
+Since all of our routes point to Posts controller actions, we only need a posts
 controller, however we do need to use both the post service and the category
 service within it. Given that, create a `postsController.js` file under
 `app/controllers`, and the first thing we want to do in it is require both
@@ -635,9 +635,9 @@ exports.index = async (req, res) => {
 };
 ```
 
-Which is not all that dissimilar to what you'd expect to find in a rails
+Which is not all that dissimilar to what you'd expect to find in a Rails
 project. Our first major difference comes with error handling in the create
-action. In rails we rescue, in node we `try` to do something, and we `catch` the
+action. In Rails we rescue, in Node we `try` to do something, and we `catch` the
 failure.
 
 Generally speaking there are two scenarios in which you might want to catch an
@@ -733,26 +733,26 @@ We'll make those views soon.
 
 ### Filters
 
-Helper methods are great in rails, and i don't think i'd want to go without
-them, but i have had a hard time figuring out the best place to put them because
+Helper methods are great in Rails, and I don't think I'd want to go without
+them, but I have had a hard time figuring out the best place to put them because
 the helper pattern doesn't really seem to fit the way Nunjucks wants us to use
 them, which is to register them explicitly with Nunjucks in the server before we
-use them in tempalates.
+use them in templates.
 
-Given that, where i settled was the `config` directory, and since nunjucks calls
-them filters, i put them in `config/filters.js`.
+Given that, where I settled was the `config` directory, and since Nunjucks calls
+them filters, I put them in `config/filters.js`.
 
 Our views will need two helpers, one to tell it how to format a date, and one to
-replace newlines with html `<br>`s. So, in `config/filters.js` just export a
+replace newlines with HTML `<br>`s. So, in `config/filters.js` just export a
 date function that calls the native `toLocaleDateString` with a sensible config
 on a given date value, and then export a `nl2br` function that replaces `\n`
 with `<br>`.
 
 The problem with a `nl2br` method that does just that, is that for it to work in
-nunjucks we have to explicitly allow raw html with it's built in `safe` filter,
-which is equivalent to rails' `html_safe`. If you've been around rails for some
-time, you might know that this opens up a huge vulnerability for xss, and in
-rails you'd solve that by calling `html_escape` first (or `h`). We'll have to do
+nunjucks we have to explicitly allow raw HTML with its built-in `safe` filter,
+which is equivalent to Rails' `html_safe`. If you've been around Rails for some
+time, you might know that this opens up a huge vulnerability for XSS, and in
+Rails you'd solve that by calling `html_escape` first (or `h`). We'll have to do
 that ourselves, so actually our `nl2br` filter will also need to replace `&`,
 `<`, and `>` before we replace `\n`.
 
@@ -783,7 +783,7 @@ Which we can easily call in views like this: `{{ post.body | nl2br | safe }}`
 ### Server
 
 The only thing left to do before we start building out views is to set up our
-server. In node, the convention is a `server.js` file at root, and that's what
+server. In Node, the convention is a `server.js` file at root, and that's what
 we set up ages ago in our `package.json` scripts.
 
 Inside that server file, we'll want to do several things:
@@ -799,7 +799,7 @@ Inside that server file, we'll want to do several things:
 - Connect to the database
 - Boot the app
 
-All of that sounds like a lot, but one of the reasons i like this template is
+All of that sounds like a lot, but one of the reasons I like this template is
 that it's all pretty concise, all pretty easy to follow, and that means this
 centralization stops being a burden and starts being an asset. The entirety of
 our `server.js` file looks like this:
@@ -864,8 +864,8 @@ defined port.
 
 ### Views
 
-Nunjucks is an odd choice for a view engine, and if i wasn't trying to bridge a
-rails and node gap i'd use something else, but `njk` is unbelievably similar to
+Nunjucks is an odd choice for a view engine, and if I wasn't trying to bridge a
+Rails and Node gap I'd use something else, but `njk` is unbelievably similar to
 `erb`, so much so that if you are looking to reduce cognitive load when
 switching between rails and node projects, there is no better choice.
 
@@ -880,15 +880,15 @@ A quick primer on `njk`:
   nunjucks `{% block name %}...{% endblock %}`
 - That same named block syntax also replaces your `<% yield :block %>`.
   `posts/index.njk` extends `layouts/base.njk`, so where the layout file has
-  it's `content` block, the index places it's own `content` block, no need to
+  its `content` block, the index places its own `content` block, no need to
   yield.
 - Partials become includes. `<%= render 'partial' %>` becomes
   `{% include "partials/_partial.njk" %}` noting that the full inner path is
   there, because we can't rely on rails convention.
-- Rails let's you pass locals to partials, nunjucks expects you to set locals
+- Rails lets you pass locals to partials, nunjucks expects you to set locals
   and then render the partial afterwards. `<%= render 'partial', key: val %>` is
   `{% set key = val %}` and then `{% include "partials/_partial.njk" %}`.
-- If uses a special `endif` tag, not `end`. i.e. `<% if x %>...<% end %>`
+- It uses a special `endif` tag, not `end`; e.g. `<% if x %>...<% end %>`
   becomes `{% if x %}...{% endif %}` - `{% else %}` works as is.
 - There is no `<% unless x %>` but there is a `{% if not x %}`.
 - JS for..in loops replace your .each, so `<% @posts.each do |post| %>` is
@@ -937,7 +937,7 @@ you're going to build them, an exhaustive list of all the views in use here is:
 
 ### CSS
 
-I also won't include the CSS in the readme, because it's hardly universal, but
+I also won't include the CSS in the README, because it's hardly universal, but
 it is worth touching on because it's included in our base layout.
 
 In our server, we said `app.use(express.static('public'))` which tells our app
@@ -946,13 +946,13 @@ that static files live in our public directory. In our base layout, we said
 Therefore, our app stylesheet belongs in `public/css/app.css`.
 
 Anything you want to serve statically also belongs in public. That might be
-additional css files, static js files, images (like logos, favicons), fonts,
+additional CSS files, static JS files, images (like logos, favicons), fonts,
 etc. When referencing them in your views, you do not need to specify `/public`,
 because the app already knows that's where static files live.
 
-In a prod setup, say on a Hetzner box (i do), you might want to let nginx serve
+In a production setup, say on a Hetzner box (I do), you might want to let nginx serve
 static assets instead - in that case just add the locations to your nginx config
-i.e:
+e.g.:
 
 ```nginx
 location /css/ { root /var/www/blog/public; }
